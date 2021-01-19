@@ -1,5 +1,5 @@
 \section{GNUPlot}
-\textit{General script pattern involves an arbitrary number of }\textbf{set}\textit{ commands for setup of axes, titles, fonts, and other styles; followed by one or more }\textbf{plot}\textit{ commands, each of which renders output to the default or designated \say{terminal}. See \href{here}{http://gnuplot.info/demos/} for numerous demos.}
+\textit{General script pattern involves an arbitrary number of }\textbf{set}\textit{ commands for setup of axes, titles, fonts, and other styles; followed by one or more }\textbf{plot}\textit{ commands, each of which renders output to the default or designated \say{terminal}. See \href{http://gnuplot.info/demos/}{here} for numerous demos, or in <src>/demo directory.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -69,46 +69,46 @@
     \item candlesticks \quad x, min, wsk\_min, wsk\_max, max
     \item circles \quad x, y, [rad,[arc\_beg, [arc\_end]]], [col]
     \item ellipses \quad x, y, [major, [minor, [angle]]]
-    \item dots
-    \item filledcurves
-    \item financebars
-    \item fsteps
-    \item fillsteps
-    \item histeps
-    \item histograms
-    \item image
-    \item impulses
-    \item labels
-    \item lines
-    \item linespoints
-    \item parallelaxes
-    \item polar 
-    \item points
-    \item polygons
-    \item spiderplot
-    \item steps
-    \item rgbalpha
-    \item rgbimage
-    \item vectors
-    \item {[x|xy|y]}errorbars
-    \item {[x|xy|y]}errorlines
-    \item pm3d
-    \item isosurface
-    \item zerrorfill
+    \item dots \quad [x], y, [z]
+    \item filledcurves \quad x, y, yerror
+    \item financebars \quad date, open, low, high, close
+    \item histeps \quad [x], y, [z]
+    \item histogram \quad y, [yerr|[ymin, ymax]] 
+    \item image \quad bitmap-image 
+    \item impulses \quad [x], y, [z] 
+    \item labels \quad x, y, [z], string 
+    \item lines \quad [x], y, [z]
+    \item linespoints \quad [x], y, [z]
+    \item parallelaxes \quad (\textit{one per axis}) 
+    \item polar  \quad angle, radius 
+    \item points \quad [x], y, [z]
+    \item polygons \quad <\href{http://gnuplot.sourceforge.net/demo\_5.5/polygons.html}{polygon}>
+    \item spiderplot \quad (\textit{one per axis}) 
+    \item [f|fill|]steps \quad x, y
+    \item rgb[alpha|image] \quad (see image)
+    \item vectors \quad x, y, [z], x$\Delta$, y$\Delta$, [z$\Delta$] 
+    \item {[x|xy|y]}errorbars \quad x, y, [x$\Delta$ | [xlow, xhigh]] 
+    \item {[x|xy|y]}errorlines \quad x, y, [x$\Delta$ | [xlow, xhigh]] 
+    \item pm3d \quad \textit{(see documentation)}
+    \item isosurface \quad <voxel-grid-file>
+    \item zerrorfill \quad x, y, z, [z$\Delta$ | [zlow, zhigh]] 
 \end{itemize}}
 
-\textit{There are a number of variations on a theme, eg to create a \say{bee swarm} plot, use }\textbf{with points}\textit{ and }\textbf{set jitter}.
+\textit{There are a number of variations on a theme, eg to create a \say{bee swarm} plot, use }\textbf{with points}\textit{ and }\textbf{set jitter}. Similarly, for \say{fence plots} use the }\textbf{zerrorfill}\textit{ style. \textit{ Some allow an additional qualifier, eg }\textbf{histogram [clustered|errorbars|rowstacked|columnstacked]}\textit{. In most cases, additional setup (as detailed above) is desired, eg:}
+\code{set spiderplot; set paxis 1 range [0:100]}\\
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Terminals (Output)}
 
 \code{set term [terminal-name] [term-option]*}\\
 
-\textit{Output can be rendered as code for external compilation (eg, tikz, svg, HTML canvas, etc); as image binaries (jpeg, gif, pdf, etc); within a specified terminal (qt, x11, etc); or directly to a supported printer (eg, epson, hp, etc). My preferred terminals are: cairolatex, canvas, gif, pdfcairo, pngcairo, pstricks, svg, tikz, x11. For example:}
+\textit{Output can be rendered as code for external compilation (eg, tikz, svg, HTML canvas, etc); as image binaries (jpeg, gif, pdf, etc); within a specified terminal (qt, x11, etc); or directly to a supported printer (eg, epson, hp, etc). My preferred terminals are: cairolatex, canvas, gif, pdfcairo, pngcairo, pstricks, svg, tikz, wxt, x11. For example:}
 
+\entry{35mm}{set output 'file.png'}{save to file}\\
 \entry{45mm}{set term pngcairo size 400,600}{png}\\
 
-\textit{Each terminal has its own [unfortunately] distinct interface to control options such as the following (more commonly implemented ones):}\\
+\textit{See more examples \href{http://www.gnuplotting.org/output-terminals/}{here}. Each terminal has its own [unfortunately] distinct interface to control options such as the following (more commonly implemented ones):}\\
 %: font, scaling, transparency, background color, line width, paper size, etc. Most support the
 
 \begin{itemize}
