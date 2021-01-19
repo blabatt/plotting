@@ -1,0 +1,124 @@
+\section{\href{https://docs.juliaplots.org/latest/input\_data/}{Plots.jl}}
+
+\textit{Frontends: \href{http://docs.juliaplots.org/latest/}{Plots}, \href{http://gadflyjl.org/stable/}{Gadfly}, and \href{https://github.com/JuliaGraphics/Winston.jl}{Winston} (obsolete). \say{Backend} packages for Plots: \href{https://github.com/plotly/Plotly.jl}{PlotlyJS}, \href{https://github.com/JuliaPy/PyPlot.jl}{PyPlot}, \href{https://github.com/jheinen/GR.jl}{GR}, \href{https://kristofferc.github.io/PGFPlotsX.jl/stable/}{PGFPlotsX}. (Eg, \texttt{\code{gr()}}). See \href{https://docs.juliaplots.org/latest/generated/supported/}{here} for attributes supported per backend.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{http://docs.juliaplots.org/latest/}{Plotting}}
+\entry{30mm}{\code{p = plot(x,y)}}{visual side-effect}\\
+\entry{30mm}{\code{plot!(x,y)}}{add to current plot}\\
+\entry{30mm}{\code{plot(p,x,y)}}{$\equiv$ to above (adds to p)}\\
+\entry{35mm}{\code{z = rand(10,2); plot(x,z)}}{ mult series}\\
+\entry{30mm}{\code{plotly()}}{set plotly backend}\\
+\entry{30mm}{\code{gr()}}{set gr backend} \\
+\entry{30mm}{\code{display(plot(x, y))}}{ required in scripts}\\
+\entry{30mm}{\code{plot(x,x->sin(x))}}{plot anon fn}\\
+\entry{45mm}{\code{tvec = range(0, 6.28, length = 100)}}{setup...} \\
+\entry{30mm}{\code{plot(sin,cos,tvec)}}{ parametric plot }\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Stylizing}
+\textit{Choose a color scheme from \href{https://docs.juliaplots.org/latest/generated/plotthemes/}{here}, a theme from \href{https://docs.juliaplots.org/latest/generated/plotthemes/}{here}, and then fine-tune by hand like:} \\
+\entry{48mm}{\code{plot!(p,title="...")}}{title} \\
+\entry{48mm}{\code{plot!(p,label = [\textquotedbl Line 1\textquotedbl \hspace{1mm} \textquotedbl Line 2\textquotedbl])}}{attrs} \\
+\entry{48mm}{\code{xlabel!("My x")}}{alternat.} \\
+\entry{25mm}{\code{clibrary(<clib>)}}{import color library $\in$:}\\ 
+\textit{:Plots, :cmocean, :misc, :colorcet, :colorbrewer} \\
+\entry{30mm}{\code{plotattr()}}{query params} \\
+
+\textit{Plot-level attributes (more \href{https://docs.juliaplots.org/latest/generated/attributes\_plot/}{here}):}\\
+{\scriptsize
+\begin{tabular}{l l l}
+    bg (color)      & size          & dpi \\
+    fontfamily      & title         & legend \\
+    framestyle      & aspect\_ratio & camera \\
+    palette         \\
+\end{tabular}
+}\\
+\textit{Grid attributes (more \href{https://docs.juliaplots.org/latest/generated/attributes\_plot/}{here}):}\\
+{\scriptsize
+\begin{tabular}{l l l}
+    grid            & gridlinewidth         & link \\
+    {[x|y|z]}lims     & [x|y|z]ticks          & [x|y|z]scale\\
+    {[x|y]}guide      & [x|y]label \\
+\end{tabular}
+}
+
+\textit{Series-level attributes (more \href{https://docs.juliaplots.org/latest/generated/attributes\_series/}{here}):}\\
+{\scriptsize
+\begin{tabular}{l l l}
+    Points                  & Lines          & Surfaces \\ \hline
+    markercolor             & linecolor     & fillrange \\
+    markeralpha             & linealpha     & fillcolor \\
+    markersize              & linestyle     & fillalpha \\
+    markershape             & linewidth     & \\
+    markerstroke-           & \\
+    \phantom{xxxx}-color    & \\
+    \phantom{xxxx}-alpha    & \\
+    \phantom{xxxx}-width    & \\
+\end{tabular}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Plot Types}
+\entry{45mm}{\code{plot!(p,seriestype = :scatter)}}{series} \\
+\textit{Where seriestype $\in$:}\\
+{\scriptsize
+\begin{tabular}{l l l}
+    line        & path          & steppre \\
+    steppost    & sticks        & scatter \\
+    heatmap     & hexbin        & barbins \\
+    barhist     & stephist      & bins2d \\
+    histogram2d & histogram3d   & density \\
+    bar         & hline         & vline \\
+    contour     & pie           & shape \\
+    image       & path3d        & scatter3d \\
+    surface     & wireframe     & contour3d \\
+    volume  \\
+\end{tabular}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Screen Layout}
+\entry{43mm}{\code{plot(x, y, layout = (4, 1))}}{4x1 vertically} \\
+\entry{43mm}{\code{plot(p1,p2,p3,p4,layout=(2,2))}}{saved p\textquotesingle s}\\
+\entry{43mm}{\code{l = @layout [a\{0.6h\} b\{0.6w\} c]}}{advanced} \\
+\entry{43mm}{\code{plot(x, y, layout = l)}}{use above} \\
+\entry{35mm}{\code{BB = (x1,x2,y1,y2)}}{set boundingbox} \\
+\entry{35mm}{\code{plot(x,y,inset=(1,BB))}}{insetting} \\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exporting \& Importing}
+\textit{Save to .eps, .html, .pdf, .png, .ps, .svg, .tex, .text:}\\
+\entry{35mm}{\code{savefig(\textquotedbl myplot.png\textquotedbl)}}{from screen} \\
+\entry{35mm}{\code{savefig(p, \textquotedbl myplot.pdf\textquotedbl)}}{from var p} \\
+\entry{35mm}{\code{png(fn)}}{shorthand save as} \\
+\entry{35mm}{\code{img = load(\textquotedbl a.png\textquotedbl)}}{load image} \\
+\entry{35mm}{\code{plot(x,y,img)}}{plot an image} \\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Animations}
+\textit{See \href{https://docs.juliaplots.org/latest/\#simple-is-beautiful-1}{here} for more examples.}\\
+\code{\code{p = plot([sin, cos], zeros(0), leg = false)}} \\
+\code{\code{anim = Animation()}}{} \\
+\code{\code{for x = range(0, stop = 10$\pi$, length = 100)}}  \\
+\code{\phantom{xxx}\code{push!(p, x, Float64[sin(x), cos(x)])}}   \\
+\code{\phantom{xxx}\code{frame(anim)}} \\
+\code{\code{end}} \\
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Extensions}
+\textit{Use or create \href{http://docs.juliaplots.org/latest/recipes/\#recipes-1}{recipes} for often-generated plot-types. Eg, \href{https://github.com/JuliaPlots/StatsPlots.jl}{StatsPlot} allows visualization of data frames, distributions, boxplots, etc. Also see \href{https://github.com/JuliaPlots/GraphRecipes.jl}{GraphRecipes} for help plotting graphs. Alternatively, browse the \say{\href{http://docs.juliaplots.org/latest/ecosystem/\#ecosystem-1}{ecosystem}}.}
+
+
+\entry{35mm}{\code{@df iris scatter( }}{using Dataframes}\\
+\code{\phantom{xxx}:SepalLength, :SepalWidth)} \\ 
+\entry{35mm}{\code{plot(Normal(3, 5))}}{using Distributions}  \\
+

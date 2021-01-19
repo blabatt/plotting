@@ -1,0 +1,186 @@
+\section{GNUPlot}
+\textit{General script pattern involves an arbitrary number of }\textbf{set}\textit{ commands for setup of axes, titles, fonts, and other styles; followed by one or more }\textbf{plot}\textit{ commands, each of which renders output to the default or designated \say{terminal}. See \href{here}{http://gnuplot.info/demos/} for numerous demos.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Invocation}
+\code{gnuplot [options]* [script-file]?}\\
+\textit{GNUPlot is invoked in either batch mode (script given to STDIN); or in interactive mode, which exposes a prompt. Command line options include:}\
+\begin{itemize}[label=-]
+    \item V \quad \ul{version}
+    \item h \quad \ul{help}
+    \item p \quad \ul{persist} plot windows after close 
+    \item d \quad \ul{default-settings}
+    \item s \quad \ul{slow}: wait for font initialization
+    \item e \quad execute given command
+    \item c \quad call given following script
+\end{itemize}
+\textit{Default settings can be overridden at startup by initialization files in either .gnuplotrc (location determined at install) or \textasciitilde /.gnuplot. These files can invoke normal }\textbf{set}\textit{ commands as well as setting environment variables such as: } \texttt{GNUTERM}, \texttt{GDFONTPATH}, \texttt{GNUPLOT\_DEFAULT\_GDFONT}. \\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Plot Command and Using phrase}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Set Command}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Script Syntax}
+
+%%% Expressions
+%%% Iterations
+%%% Strings
+%%% Command line substitutions
+
+\entry{35mm}{\# \dots}{comment}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Data Input}
+
+%%% Herefile
+\entry{35mm}{plot \textquotesingle -\textquotesingle \, <{}< EOD \dots EOD}{\say{here-document}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Built-in Functions}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Stylizing: lines \& text}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Plot Types}
+\code{plot <data> using \dots with [style]}\\
+\textit{Generally the \say{plot type} is indicated by setting a \say{style} per the above }\textbf{plot}\textit{ syntax. The following styles render eponymous plot types. In each case, }\textbf{using}\textit{ must yield an acceptable number of data fields, as indicated below.}
+
+{\footnotesize
+\begin{itemize}
+    \item arrows \quad x, y, length, angle
+    \item boxerrorbars \quad 
+    \item boxes \quad x,y,[xwidth]
+    \item boxes (3d) \quad x, y, z, [xwidth], [color]
+    \item boxplot \quad x,y,[?,?]
+    \item boxxyerror \quad x, y, [x$\delta$,y$\delta$]|[xmin,xmax,ymin,ymax]
+    \item candlesticks \quad x, min, wsk\_min, wsk\_max, max
+    \item circles
+    \item ellipses
+    \item dots
+    \item filledcurves
+    \item financebars
+    \item fsteps
+    \item fillsteps
+    \item histeps
+    \item histograms
+    \item image
+    \item impulses
+    \item labels
+    \item lines
+    \item linespoints
+    \item parallelaxes
+    \item polar 
+    \item points
+    \item polygons
+    \item spiderplot
+    \item steps
+    \item rgbalpha
+    \item rgbimage
+    \item vectors
+    \item {[x|xy|y]}errorbars
+    \item {[x|xy|y]}errorlines
+    \item pm3d
+    \item isosurface
+    \item zerrorfill
+\end{itemize}}
+
+\textit{There are a number of variations on a theme, eg to create a \say{bee swarm} plot, use }\textbf{with points}\textit{ and }\textbf{set jitter}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Terminals (Output)}
+
+\code{set term [terminal-name] [term-option]*}\\
+
+\textit{Output can be rendered as code for external compilation (eg, tikz, svg, HTML canvas, etc); as image binaries (jpeg, gif, pdf, etc); within a specified terminal (qt, x11, etc); or directly to a supported printer (eg, epson, hp, etc). My preferred terminals are: cairolatex, canvas, gif, pdfcairo, pngcairo, pstricks, svg, tikz, x11. For example:}
+
+\entry{45mm}{set term pngcairo size 400,600}{png}\\
+
+\textit{Each terminal has its own [unfortunately] distinct interface to control options such as the following (more commonly implemented ones):}\\
+%: font, scaling, transparency, background color, line width, paper size, etc. Most support the
+
+\begin{itemize}
+    \item background <color>
+    \item color | monochrome
+    \item {[no]}enhanced
+    \item font <fontname[,size]>
+    \item fontscale <scale>
+    \item {[no]}header <header>
+    \item {[input|standalone]}
+    \item {[no]}inverted
+    \item linewidth <lw>
+    \item {[rounded|butt|square]}
+    \item title <title>
+    \item {[no]}transparent
+    \item size <XX>,<YY>
+    \item resolution <dpi>
+    %\item charset [ascii|blocks|unicode]
+\end{itemize}
+
+
+\begin{comment}
+\begin{tabular}{c c c c}
+    aifm & aqua & be & caca \\
+    cairolatex & canvas & cgm & context \\
+    corel & debug & domterm & dumb \\
+    dxf & dxy800a & eepic & emf \\
+    emxvga & epscairo & epslatex & epson\_180dpi \\
+    excl & fig & ggi & gif \\
+    gpic & grass & hp2623a & hp2468 \\
+    hp500c & hpgl & hpljii & hppj \\
+    imagen & jpeg & kyp & latex \\
+    linux & lua & mf & mif \\
+    mp & pbm & pcl5 & pdf \\
+    pdfcairo & pict2e & pm & png \\
+    pngcairo & postscript & pslatex & pstricks \\
+    qms & qt & regis & sixelgd \\
+    svg & svga & tek40 & tek410x \\
+    texdraw & tgif & tikz & tkcanvas \\
+    tpic & vws & windows & wxt \\
+    x11 & xlib
+\end{tabular}
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Command-line Shortcuts}
+\begin{tabular}{c c | c c}
+    \textasciicircum B & back char & \textasciicircum F & forwd char \\
+    \textasciicircum A & begin line & \textasciicircum E & end line \\ 
+    \textasciicircum H & del prev char & DEL & del curr char \\
+    \textasciicircum D & del curr char & \textasciicircum K & del to EOL \\
+    \textasciicircum L & redraw line & \textasciicircum U & delete line \\
+    \textasciicircum W & del prev word & \textasciicircum V & inhibit \\
+    TAB & file-complet\textquotesingle n & \textasciicircum P & back history \\
+    \textasciicircum N & forward hist & \textasciicircum R & back-search \\
+\end{tabular}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%% BONEYARD %%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Fonts}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Strings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Stylizing}
+
+
