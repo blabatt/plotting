@@ -93,29 +93,35 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Script Syntax}
-
 \textit{Expressions:}\\
 \entry{35mm}{var1 + var2}{variables} \\
 \entry{35mm}{sin(x) + 2}{function call} \\
 \entry{35mm}{\{1.0, -3.4\}}{constant $\in\mathbb{C}$} \\
 \entry{35mm}{\textasciitilde var}{one\textquotesingle s comp.} \\
 \entry{35mm}{var1 \&\& var2}{logical AND} \\[2mm]
-
 \textit{Operators:}\\
 {\footnotesize\begin{tabular}{l l l l l l l l}
     **	& *	& /	& \%	& +	& -	& ==	& !=	\\
-    <	& <=	& >	& >=	& <{}<	& >{}>	& \&	& \textasciicarat	\\
+    <	& <=	& >	    & >=	& <{}<	& >{}>	& \&	& \textasciicircum	\\
+    |   & \&\&  & ||    & =     & ,     & .     & eq    & ne    \\
+\end{tabular}} \
+%\vspace{2mm}
 
-\end{tabular}}
-\vspace{2mm}
-
-\textit{Iteration:}\\
-
-\textit{Stringss:}\\
-
-\textit{Command-line substitution:}\\
-
-\entry{35mm}{\# \dots}{comment}
+\textit{Conditionals:}\\
+\entry{45mm}{if(\dots)\{\dots\} else \{ \dots \}}{conditional}\\
+\entry{45mm}{plot for [file in \textquotedbl A B C\textquotedbl] file \dots }{plot for}\\
+\entry{45mm}{set for [i = 1:10] style line i lc \dots }{set for}\\
+\entry{45mm}{while(<expr>)\{<cmd>*\}}{while syntax}\\
+\entry{45mm}{do for [i in \textquotedbl A B C\textquotedbl] \{ <cmd>*\}}{repet. cmds}\\
+\textbf{do}\textit{ and }\textbf{while}\textit{ admit }\textbf{break}\textit{ and }\textbf{continue}\textit{ statements, as you might imagine.}\\[2mm]
+\textit{Strings:}\\
+\entry{40mm}{sprintf(\textquotedbl Title, plot \#\%d\textquotedbl,n)}{functions}\\
+\entry{40mm}{\textquotedbl Title for plot \#\textquotedbl .\textquotedbl 4\textquotedbl }{concatenation}\\
+\entry{40mm}{if (\textquotedbl A\textquotedbl .\textquotedbl B\textquotedbl \, eq \textquotedbl AB\textquotedbl)}{operators}\\
+\entry{40mm}{strlen(\textquotedbl $\alpha\beta\gamma$\textquotedbl)}{=3 \dots utf-8}\\
+\entry{40mm}{\textquotedbl generated on \textquotesingle date\textquotesingle \textquotedbl}{cmd-line subst.}\\
+\entry{40mm}{\# I\textquotesingle m a comment}{comments}\\
+\entry{50mm}{range = \textquotedbl 1:3\textquotedbl; plot \dots using @range}{macros}\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
