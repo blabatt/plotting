@@ -23,17 +23,17 @@
 \code{[s]plot [<\ul{p}lot\_\ul{e}lement>]*}
 %\code{[<data> using <map> with <style>]*}
 
-\textit{PE has the following structure:}\\
-\begin{itemize}[label=|]
+\textit{PE has the following structure:}
+\begin{itemize}[label=|-]
 \item axes
 \item data
-    \begin{itemize}
+    \begin{itemize}[label=|-]
 	\item bins
 	\item csv
 	\item index
 	\item skip
 	\item using
-	    \begin{itemize}
+	    \begin{itemize}[label=|-]
 		\item key
 		\item {[x|x2|y|y2|cb]}ticlabels
 	    \end{itemize}
@@ -43,24 +43,21 @@
 \end{itemize}
 
 
-\textbf{replot} \textit{ and }\textbf{refresh}\textit{ repeat the last }\textbf{plot}\textit{ command. }\textbf{using}\textit{ phrase maps }<data>\textit{ to the abscissa \& ordinate (or angle and radius) as well as \say{plot style}-specific characteristics.}
-
-
-\textit{Plot examples (multiple PEs, for clause, with clause, ranges, href{http://www.gnuplot.info/demo/param.html}{parametric}, various PE \& using arguments):}\\
+\textbf{replot} \textit{ and }\textbf{refresh}\textit{ repeat the last }\textbf{plot}\textit{ command. }\textbf{with}\textit{ phrase sets \say{plot style}-specific characteristics.} \\
+\textit{Plot examples (multiple PEs, for clause, with clause, ranges, \href{http://www.gnuplot.info/demo/param.html}{parametric}, various PE \& using arguments):}\\
 \code{plot sin(x), cos(x)}\\
 \code{plot for \dots}\\
 \code{plot \textquotedbl file\textquotedbl with lines,}\\
 \code{\phantom{xxx}\textquotedbl file2\textquotedbl with points}\\
 \code{plot [-pi:pi*2] tan(x)}\\
 \code{plot [t=1:10] [-pi:pi*2] tan(t)}\\
-\code{plot \textquotedbl file\textquotedbl using (tan(\$2)):(\$3/\$4) smooth csplines \textbackslash}\\
+\code{plot \textquotedbl file\textquotedbl using (tan(\$2)):(\$3) smooth csplines \textbackslash}\\
 \code{\phantom{xxx}axes x1y2 title \textquotedbl parametric\textquotedbl with lines}
-
-\textit{Using examples:}\\
-
+ 
+\textbf{using}\textit{ phrase maps }<data>\textit{ to the abscissa \& ordinate (or angle and radius) as well as \say{plot style}-specific characteristics. Using examples:}\\
 \entry{40mm}{\dots using 1:(\$2+\$3)}{derived fields}\\
-\entry{40mm}{\dots using 1:5 \textquotesingle \%lf,\%lf,\%lf\textquotesingle}{comma separated}\\
-\entry{40mm}{\dots using 1:(\$3>10 ? \$2 : 1/10)}{ternary filtered}\\
+\entry{40mm}{\dots using 1:5 \textquotesingle \%lf,\%lf,\%lf\textquotesingle}{comma sep}\\
+\entry{40mm}{\dots using 1:(\$3>7 ? \$2 : 1/7)}{ternary filtered}\\
 \entry{40mm}{\dots using 2:4:xtic(1):ytic(3)}{labels}\\
 
 
