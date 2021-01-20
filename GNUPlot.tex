@@ -4,8 +4,27 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Invocation}
-\code{gnuplot [options]* [script-file]?}\\
-\textit{GNUPlot is invoked in either batch mode (script given to STDIN); or in interactive mode, which exposes a prompt. Command line options include:}\
+\code{gnuplot [options]* [-c script-file]?}\\[2mm]
+\textit{GNUPlot is invoked in either batch mode (script given to STDIN); or in interactive mode, which exposes a prompt. Default settings can be overridden at startup by initialization files in either <install>/.gnuplotrc or \textasciitilde /.gnuplot. These files can invoke normal }\textbf{set}\textit{ commands as well as setting environment variables such as: } \texttt{GNUTERM}, \texttt{GDFONTPATH}, \texttt{GNUPLOT\_DEFAULT\_GDFONT}. \\[2mm]
+\textit{Interactive (command-line) commands include:} 
+{\footnotesize 
+\begin{tabular}{l l l l}
+    break       & cd            & call      &   clear   \\
+    contin.     & do            & evaluate  &   exit    \\      
+    \href{http://www.gnuplot.info/demo/fit.html}{\textbf{fit}}  & help        & history   & if        \\
+    for         & import        & load      & lower     \\
+    pause       & \textbf{[s]plot}  & print & printerr  \\
+    pwd         & quit          & raise     & refresh   \\
+    replot      & reread        & reset     & save      \\
+    \textbf{set}  & show        & shell     & stats     \\
+    system      & test          & toggle    & undef.    \\
+    unset       & update        & vclear    & vfill     \\
+    while
+\end{tabular}}
+
+
+\begin{comment}
+\textit{Command line options include:}\
 \begin{itemize}[label=-]
     \item V \quad \ul{version}
     \item h \quad \ul{help}
@@ -15,46 +34,52 @@
     \item e \quad execute given command
     \item c \quad call given following script
 \end{itemize}
-\textit{Default settings can be overridden at startup by initialization files in either .gnuplotrc (location determined at install) or \textasciitilde /.gnuplot. These files can invoke normal }\textbf{set}\textit{ commands as well as setting environment variables such as: } \texttt{GNUTERM}, \texttt{GDFONTPATH}, \texttt{GNUPLOT\_DEFAULT\_GDFONT}. \\
+\end{comment}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Plotting} 
-\code{[s]plot [<\ul{p}lot\_\ul{e}lement>]*}
+\code{[s]plot [<\ul{p}lot\ul{e}lement>]+}\\[2mm]
 %\code{[<data> using <map> with <style>]*}
+\textbf{replot} \textit{ and }\textbf{refresh}\textit{ repeat the last }\textbf{plot}\textit{ command. PE has the following elaborate structure:}
 
-\textit{PE has the following structure:}
+{\footnotesize 
 \begin{itemize}[label=|-]
-\item axes
-\item data
+\item \textbf{axes} \dots to display $\in$ []
+\item <data> \dots $\in$ <file>|\textquotesingle \textquotesingle|\textquotesingle -\textquotesingle|\textquotesingle +\textquotesingle|<\say{sampled}>
     \begin{itemize}[label=|-]
-	\item bins
-	\item csv
-	\item index
-	\item skip
-	\item using
+	\item \textbf{csv} \dots datafile is in csv format
+	\item \textbf{index} \dots [m, [n, [p]]] select from datasets
+	\item \textbf{every} \dots periodic row selection
+	\item \textbf{skip} \dots used to skip col headers
+	\item \textbf{using} \dots map data to plotting cols
 	    \begin{itemize}[label=|-]
-		\item key
-		\item {[x|x2|y|y2|cb]}ticlabels
+		\item \textbf{key} \dots row-based titles
+    	\item \textbf{bins} \dots segregate x into buckets
+    	\item \textbf{smooth} \dots interpolation $\in$: \\
+    	   unique | frequency | cumulative | bins | kdensity | [a|m|]csplines | [s]bezier | unwrap | zsort
+		\item \textbf{{[x|x2|y|y2|cb]}ticlabels} \dots 
 	    \end{itemize}
     \end{itemize}
-\item title
-\item with
-\end{itemize}
+\item \textbf{title} \dots [\textbf{columnheader}[(N)]] <title> [\textbf{at} \dots]
+\item \textbf{with} \dots see Plot Types section
+\end{itemize}}
+\vspace{2mm}
 
-
-\textbf{replot} \textit{ and }\textbf{refresh}\textit{ repeat the last }\textbf{plot}\textit{ command. }\textbf{with}\textit{ sets \say{plot style}-specific characteristics.} \\[2mm]
 \textit{Plot examples:}\\
-\entry{40mm}{plot sin(x), cos(x)}{multiple PEs}\\
-\entry{40mm}{plot for \dots}{for clause}\\
-\entry{40mm}{plot \textquotedbl file\textquotedbl with lines,}{with clause}\\
-\entry{40mm}{\phantom{xxx}\textquotedbl file2\textquotedbl with points}{}\\
-\entry{40mm}{plot [-pi:pi*2] tan(x)}{ranges}\\
-\entry{40mm}{plot [t=1:10] [-pi:pi*2] tan(t)}{\href{http://www.gnuplot.info/demo/param.html}{parametric}}\\
+\entry{35mm}{plot sin(x)}{\say{sampled} <data>}\\
+\entry{35mm}{plot \textquotesingle -\textquotesingle <{}< EOD \dots}{inline \say{here-doc}}\\
+\entry{40mm}{plot for [j=1:3] sin(j*x)}{for clause}\\
+\entry{40mm}{plot for [i in var] i.\textquotedbl .dat\textquotedbl}{for-in syntax}\\
+\entry{40mm}{plot \textquotedbl file\textquotedbl \, with lines,}{with clause}\\
+\entry{40mm}{\phantom{xxx}\textquotedbl file2\textquotedbl \, with points}{second PE}\\
+\entry{40mm}{plot [-pi:pi*2] [-5:5] tan(x)}{x, y ranges}\\
+\entry{40mm}{plot [t=1:10] tan(t), x**t}{\href{http://www.gnuplot.info/demo/param.html}{parametric}}\\
 \code{plot \textquotedbl file\textquotedbl using (tan(\$2)):(\$3) smooth csplines \textbackslash}\\
-\code{\phantom{xxx}axes x1y2 title \textquotedbl parametric\textquotedbl with lines}
+\code{\phantom{xxx}axes x1y2 title \textquotedbl parametric\textquotedbl with lines}\\
  
-\textbf{using}\textit{ phrase maps }<data>\textit{ to the abscissa \& ordinate (or angle and radius) as well as \say{plot style}-specific characteristics. Using examples:}\\
+\textbf{using}\textit{ phrase maps }<data>\textit{ to the abscissa \& ordinate (or angle and radius). For example:}\\
 \entry{40mm}{\dots using 1:(\$2+\$3)}{derived fields}\\
 \entry{40mm}{\dots using 1:5:6 \textquotesingle \%lf,\%lf,\%lf\textquotesingle}{comma sep}\\
 \entry{40mm}{\dots using 1:(\$3>7 ? \$2 : 1/7)}{ternary filtered}\\
@@ -69,24 +94,56 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Script Syntax}
 
-%%% Expressions
-%%% Iterations
-%%% Strings
-%%% Command line substitutions
+\textit{Expressions:}\\
+\entry{35mm}{var1 + var2}{variables} \\
+\entry{35mm}{sin(x) + 2}{function call} \\
+\entry{35mm}{\{1.0, -3.4\}}{constant $\in\mathbb{C}$} \\
+\entry{35mm}{\textasciitilde var}{one\textquotesingle s comp.} \\
+\entry{35mm}{var1 \&\& var2}{logical AND} \\[2mm]
+
+\textit{Operators:}
+{\footnotesize\begin{tabular}{l l l l l}
+    **      & *         & /     & \%        &
+\end{tabular}}
+\vspace{2mm}
+
+\textit{Iteration:}\\
+
+\textit{Stringss:}\\
+
+\textit{Command-line substitution:}\\
 
 \entry{35mm}{\# \dots}{comment}
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Data Input}
-
-%%% Herefile
-\entry{35mm}{plot \textquotesingle -\textquotesingle \, <{}< EOD \dots EOD}{\say{here-document}}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Built-in Functions}
+
+\textit{Math Functions (data-type default is $\mathbb{C}$ then $\mathbb{R}$):}\\
+{\footnotesize
+\begin{tabular}{l l l l}
+    abs         & acos[h]       & airy      & arg       \\
+    asin[h]     & atan[2|h|]    & Elliptic  & besj[0|1|n]       \\
+    besy[0|1|n] & besi[0|1|n]   & ceil      & cos[h]    \\
+    erf[c]      & exp           & expint    & floor     \\
+    gamma       & ibeta         & inverf    & igamma    \\
+    imag        & invnorm       & int       & lambertw  \\
+    lgamma      & log[10]       & norm      & rand      \\
+    real        & sgn           & sin[h]    & sqrt      \\
+    tan[h]      & vogt
+\end{tabular}}\vspace{2mm}
+
+\textit{String, Data, \& Date Functions:}\\
+{\footnotesize
+\begin{tabular}{l l l l}
+    column          & col.head      & exists        & hsv2rgb       \\
+    palette         & sprintf       & stringcol.    & strlen        \\
+    strstrt         & substr        & str[f|p]time  & system        \\
+    timecol.        & tm\_hour      & tm\_mday      & tm\_min       \\
+    tm\_mon         & tm\_sec       & tm\_wday      & tm\_yday      \\
+    tm\_year        & time          & trim          & valid         \\
+    value           & voxel         & word[s]       \\
+\end{tabular}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,48 +151,47 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Plot Types}
-\code{plot <data> using \dots with [style]}\\
-\textit{Generally the \say{plot type} is indicated by setting a \say{style} per the above }\textbf{plot}\textit{ syntax. The following styles render eponymous plot types. In each case, }\textbf{using}\textit{ must yield an acceptable number of data fields, as indicated below.}
+\subsection*{Plot Types (\say{styles})}
+\code{plot <data> using \dots with <style>}\\
+\textit{Each PE in a }\textbf{plot}\textit{ command admits an optional override to the default }<style>\textit{, which then renders an eponymous plot type. The PE\textquotesingle s associated }\textbf{using}\textit{ must yield an acceptable number of data fields, as indicated next each }<style>\textit{ below.}
 
 {\footnotesize
 \begin{itemize}
-    \item arrows \quad x, y, length, angle
-    \item boxerrorbars \quad 
-    \item boxes \quad x,y,[xwidth]
-    \item boxes (3d) \quad x, y, z, [xwidth], [color]
-    \item boxplot \quad x,y,[?,?]
-    \item boxxyerror \quad x, y, [x$\delta$,y$\delta$]|[xmin,xmax,ymin,ymax]
-    \item candlesticks \quad x, min, wsk\_min, wsk\_max, max
-    \item circles \quad x, y, [rad,[arc\_beg, [arc\_end]]], [col]
-    \item ellipses \quad x, y, [major, [minor, [angle]]]
-    \item dots \quad [x], y, [z]
-    \item filledcurves \quad x, y, yerror
-    \item financebars \quad date, open, low, high, close
-    \item histeps \quad [x], y, [z]
-    \item histogram \quad y, [yerr|[ymin, ymax]] 
-    \item image \quad bitmap-image 
-    \item impulses \quad [x], y, [z] 
-    \item labels \quad x, y, [z], string 
-    \item lines \quad [x], y, [z]
-    \item linespoints \quad [x], y, [z]
-    \item parallelaxes \quad (\textit{one per axis}) 
-    \item polar  \quad angle, radius 
-    \item points \quad [x], y, [z]
-    \item polygons \quad <\href{http://gnuplot.sourceforge.net/demo\_5.5/polygons.html}{polygon}>
-    \item spiderplot \quad (\textit{one per axis}) 
-    \item {[f|fill|]}steps \quad x, y
-    \item rgb[alpha|image] \quad (see image)
-    \item vectors \quad x, y, [z], x$\Delta$, y$\Delta$, [z$\Delta$] 
-    \item {[x|xy|y]}errorbars \quad x, y, [x$\Delta$ | [xlow, xhigh]] 
-    \item {[x|xy|y]}errorlines \quad x, y, [x$\Delta$ | [xlow, xhigh]] 
-    \item pm3d \quad \textit{(see documentation)}
-    \item isosurface \quad <voxel-grid-file>
-    \item zerrorfill \quad x, y, z, [z$\Delta$ | [zlow, zhigh]] 
+    \item \textbf{arrows} \dots x, y, length, angle
+    \item \textbf{boxerrorbars} \dots 
+    \item \textbf{boxes} \dots x,y,[xwidth]
+    \item \textbf{boxes} (3d) \dots x, y, z, [xwidth], [color]
+    \item \textbf{boxplot} \dots x,y,[?,?]
+    \item \textbf{boxxyerror} \dots x, y, [x$\delta$,y$\delta$]|[xmin,xmax,ymin,ymax]
+    \item \textbf{candlesticks} \dots x, min, wsk\_min, wsk\_max, max
+    \item \textbf{circles} \dots x, y, [rad,[arc\_beg, [arc\_end]]], [col]
+    \item \textbf{ellipses} \dots x, y, [major, [minor, [angle]]]
+    \item \textbf{dots} \dots [x], y, [z]
+    \item \textbf{filledcurves} \dots x, y, yerror
+    \item \textbf{financebars} \dots date, open, low, high, close
+    \item \textbf{histeps} \dots [x], y, [z]
+    \item \textbf{histogram} \dots y, [yerr|[ymin, ymax]] 
+    \item \textbf{image} \dots bitmap-image 
+    \item \textbf{impulses} \dots [x], y, [z] 
+    \item \textbf{labels} \dots x, y, [z], string 
+    \item \textbf{lines} \dots [x], y, [z]
+    \item \textbf{linespoints} \dots [x], y, [z]
+    \item \textbf{parallelaxes} \dots (\textit{one per axis}) 
+    \item \textbf{polar}  \dots angle, radius 
+    \item \textbf{points} \dots [x], y, [z]
+    \item \textbf{polygons} \dots <\href{http://gnuplot.sourceforge.net/demo\_5.5/polygons.html}{polygon}>
+    \item \textbf{spiderplot} \dots (\textit{one per axis}) 
+    \item \textbf{{[f|fill|]}steps} \dots x, y
+    \item \textbf{rgb[alpha|image]} \dots (see image)
+    \item \textbf{vectors} \dots x, y, [z], x$\Delta$, y$\Delta$, [z$\Delta$] 
+    \item \textbf{{[x|xy|y]}errorbars} \dots x, y, [x$\Delta$ | [xlow, xhigh]] 
+    \item \textbf{{[x|xy|y]}errorlines} \dots x, y, [x$\Delta$ | [xlow, xhigh]] 
+    \item \textbf{pm3d} \dots \textit{(see documentation)}
+    \item \textbf{isosurface} \dots <voxel-grid-file>
+    \item \textbf{zerrorfill} \dots x, y, z, [z$\Delta$ | [zlow, zhigh]] 
 \end{itemize}}
 
-\textit{There are a number of variations on a theme, eg to create a \say{bee swarm} plot, use }\textbf{with points}\textit{ and }\textbf{set jitter}.\textit{Similarly, for \say{fence plots} use the }\textbf{zerrorfill}\textit{ style. Some allow an additional qualifier, eg }\textbf{histogram [clustered|errorbars|rowstacked|columnstacked]}\textit{. In most cases, additional setup (as detailed above) is desired, eg:}\\
-\code{set spiderplot; set paxis 1 range [0:100]}\\
+\textit{$\exists$ variations on a theme, eg to create a \say{bee swarm} plot, use }\textbf{set jitter}\textit{, then }\textbf{with points}.\textit{ Similarly, for \say{fence plots} use the }\textbf{zerrorfill}\textit{ style. Some styles admin an additional qualifier, eg }\textbf{histogram }.\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -143,59 +199,29 @@
 
 \code{set term [terminal-name] [term-option]*}\\
 
-\textit{Output can be rendered as code for external compilation (eg, tikz, svg, HTML canvas, etc); as image binaries (jpeg, gif, pdf, etc); within a specified terminal (qt, x11, etc); or directly to a supported printer (eg, epson, hp, etc). My preferred terminals are: cairolatex, canvas, gif, pdfcairo, pngcairo, pstricks, svg, tikz, wxt, x11. For example:}
+\textit{Output can be rendered as code for external compilation (eg, tikz, svg, HTML canvas, etc); as image binaries (jpeg, gif, pdf, etc); within a specified terminal (qt, x11, etc); or directly to a supported printer (eg, epson, hp, etc). My preferred terminals are: cairolatex, canvas, \href{http://gnuplot.sourceforge.net/docs/tutorial.pdf}{epslatex}, gif, pdfcairo, pngcairo, pstricks, svg, tikz, wxt, x11. For example:}
 
 \entry{35mm}{set output 'file.png'}{save to file}\\
 \entry{45mm}{set term pngcairo size 400,600}{png}\\
 
-\textit{See more examples \href{http://www.gnuplotting.org/output-terminals/}{here}. Each terminal has its own [unfortunately] distinct interface to control options such as the following (more commonly implemented ones):}\\
+\textit{See more examples \href{http://www.gnuplotting.org/output-terminals/}{here}. Each terminal has its own [unfortunately] distinct interface to control options such as the following (more common ones):}\\
 %: font, scaling, transparency, background color, line width, paper size, etc. Most support the
-
-\begin{itemize}
-    \item background <color>
-    \item color | monochrome
-    \item {[no]}enhanced
-    \item font <fontname[,size]>
-    \item fontscale <scale>
-    \item {[no]}header <header>
-    \item {[input|standalone]}
-    \item {[no]}inverted
-    \item linewidth <lw>
-    \item {[rounded|butt|square]}
-    \item title <title>
-    \item {[no]}transparent
-    \item size <XX>,<YY>
-    \item resolution <dpi>
-    %\item charset [ascii|blocks|unicode]
-\end{itemize}
-
-
-\begin{comment}
-\begin{tabular}{c c c c}
-    aifm & aqua & be & caca \\
-    cairolatex & canvas & cgm & context \\
-    corel & debug & domterm & dumb \\
-    dxf & dxy800a & eepic & emf \\
-    emxvga & epscairo & epslatex & epson\_180dpi \\
-    excl & fig & ggi & gif \\
-    gpic & grass & hp2623a & hp2468 \\
-    hp500c & hpgl & hpljii & hppj \\
-    imagen & jpeg & kyp & latex \\
-    linux & lua & mf & mif \\
-    mp & pbm & pcl5 & pdf \\
-    pdfcairo & pict2e & pm & png \\
-    pngcairo & postscript & pslatex & pstricks \\
-    qms & qt & regis & sixelgd \\
-    svg & svga & tek40 & tek410x \\
-    texdraw & tgif & tikz & tkcanvas \\
-    tpic & vws & windows & wxt \\
-    x11 & xlib
+{\footnotesize
+\begin{tabular}{l l}
+background <color>  & color | monochrome \\
+{[no]}enhanced      &  font <fontname[,size]> \\
+fontscale <scale>   &  {[no]}header <header> \\
+{[input|standalone]}&  {[no]}inverted \\
+linewidth <lw>      &  {[rounded|butt|square]} \\
+title <title>       &  {[no]}transparent \\
+size <XX>,<YY>      &  resolution <dpi> \\
 \end{tabular}
-\end{comment}
-
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Command-line Shortcuts}
+
+{\footnotesize
 \begin{tabular}{c c | c c}
     \textasciicircum B & back char & \textasciicircum F & forwd char \\
     \textasciicircum A & begin line & \textasciicircum E & end line \\ 
@@ -205,7 +231,7 @@
     \textasciicircum W & del prev word & \textasciicircum V & inhibit \\
     TAB & file-complet\textquotesingle n & \textasciicircum P & back history \\
     \textasciicircum N & forward hist & \textasciicircum R & back-search \\
-\end{tabular}
+\end{tabular}}
 
 
 
@@ -222,5 +248,9 @@
 %\subsection*{Strings}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection*{Stylizing}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Data Input}
+%%% Herefile
+%\entry{35mm}{plot \textquotesingle -\textquotesingle \, <{}< EOD \dots EOD}{\say{here-document}}
 
 
