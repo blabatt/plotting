@@ -155,28 +155,28 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Stylizing: lines \& text}
+\subsection*{Stylizing: lines, text \& color}
 
 \textit{Text:}\\
 \entry{35mm}{x\textasciicircum 2, y\_2 \{/Times abc\}}{enhanced text}\\
 \entry{35mm}{\textbackslash U+221E}{unicode ($\infty$)}\\
-\entry{35mm}{set term pdfcairo font \textquotedbl Times,12\textquotedbl}{set font}\\
+\entry{45mm}{set term pdfcairo font \textquotedbl Times,12\textquotedbl}{font}\\
 
-\textit{Lines (\ul{l}ine\ul{t}ypes, \ul{l}ine\ul{c}olors, \ul{t}ext\ul{c}olors, \ul{f}ill\ul{c}olors, \ul{l}ine\ul{s}tyles, \ul{d}ash\ul{t}ypes)}\\
+\textit{Lines (\ul{l}ine\ul{t}ypes, \ul{l}ine\ul{c}olors, \ul{t}ext\ul{c}olors, \ul{f}ill\ul{c}olors, \ul{l}ine\ul{s}tyles, \ul{d}ash\ul{t}ypes)}:\\
 \entry{35mm}{plot \textquotedbl foo\textquotedbl,  \textquotedbl bar\textquotedbl }{use default lt\textquotesingle 1,2}\\
 \entry{35mm}{plot sin(x) linetype 4}{explicit LT}\\
 \entry{35mm}{plot sin(x) lt rgb \textquotedbl violet\textquotedbl}{inline LT def}\\
-\entry{35mm}{plot \dots using 1:2:3 lc variable}{data-def\textquotesingle d color}\\
+\entry{45mm}{plot \dots using 1:2:3 lc variable}{data-def\textquotesingle d col}\\
 \entry{35mm}{plot \dots dt 4}{numbered dt}\\
 \entry{35mm}{plot \dots dt (s1,e1,\dots)}{pattern-spec\textquotesingle d DT}\\
 \entry{35mm}{set style line 5 lt \dots lw \dots}{build LS}\\
 \entry{35mm}{plot sin(x) \dots ls 5}{use the above}\\
 
 \textit{Color specification (for lines, text):}\\
-\entry{35mm}{plot \dots [lc|lt|fc] <\ul{c}olor\_\ul{s}pec>}{coloring syntax}\\
-\entry{35mm}{plot \dots lc 0xFF00FF}{RGB-based CS}\\
-\entry{35mm}{plot \dots lc \textquotedbl \#FF00FF\textquotedbl}{\textquotesingle x11\textquotesingle -based CS}\\
-\entry{35mm}{plot \dots lc palette frac .2}{fraction $\in$ [0,1]}\\
+\entry{40mm}{plot \dots [lc|lt|fc] <\ul{c}olor\_\ul{s}pec>}{coloring syntax}\\
+\entry{40mm}{plot \dots lc 0xFF00FF}{RGB-based CS}\\
+\entry{40mm}{plot \dots lc \textquotedbl \#FF00FF\textquotedbl}{\textquotesingle x11\textquotesingle -based CS}\\
+\entry{40mm}{plot \dots lc palette frac .2}{fraction $\in$ [0,1]}\\
 
 
 
