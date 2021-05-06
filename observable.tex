@@ -1,0 +1,116 @@
+\section{Observable Plot}
+
+\textit{Inspired by Grammar of Graphics, built atop D3, and tightly integrated with Observable. Plot is opinionated, full of default options and [overridably] programmatic means of inferring the plot-author's intent. Eg, scales (their type, domain, and range) are often inferred from data and screen context.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Plotting}
+\textit{To plot, issue one of the following calls}
+\begin{lstlisting}
+Plot.plot(<options>)
+Plot.<mark>(<data>, <options>).plot()
+\end{lstlisting}
+\textit{Plot-level style options include:}\\
+\api
+{\widththree}{marks \\ marginBottom \\ height}
+{\widththree}{marginTop \\ marginLeft}
+{\widththree}{marginRight \\ width}
+\stopapi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Options \& Channels}
+\textit{Ubiquitous as arguments in the signature of Plot's modules, each set of options is associated with one of the major domain entities: a mark, a scale, a facet, a transform, or the plot itself.}\textit{``Channels'' are a special kind of option, exclusively for marks, that vary according to the associated mark's data.}
+
+\api
+\stopapi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Marks}
+\textit{Importantly, {\rm\bf Plot} eschews plot-types in favor of ``marks,'' which represent graphical elements to display. Each mark type has options, some of which are common to all mark-types. Mark types $\in$:}\\
+\api
+{\widthfour}{area[X|Y] \\ line[X|Y] \\ text[X|Y]}
+{\widthfour}{bar(X|Y) \\ link \\ tick(X|Y)}
+{\widthfour}{cell[X|Y] \\ rect[X|Y]}
+{\widthfour}{dot[X|Y] \\ rule(X|Y)}
+\stopapi
+\vspace{1mm}
+
+\textit{Style options (some only for \ul{r}ect. marks):}\\
+\api
+{\widththree}{fill \\ strokeWidth \\ strokeMiterlimit \\ insetTop\textsuperscript{r} \\ rx\textsuperscript{r} \\}
+{\widththree}{fillOpacity \\ strokeOpacity \\ strokeDasharray \\ insetRight\textsuperscript{r} \\ ry\textsuperscript{r} \\}
+{\widththree}{stroke \\ strokeLinejoin \\ mixBlendmode \\ insetBottom\textsuperscript{r} \\}
+\stopapi
+
+\textit{Mark options that vary with data are ``{\rm\bf channels}.'' Channels that are available for all mark types $\in$:}\\
+\api
+{\widththree}{fill \\ strokeOpacity}
+{\widththree}{fillOpacity \\ title}
+{\widththree}{stroke}
+\stopapi
+\vspace{1mm}
+
+\textit{Channels by plot type (\ul{o}ptional / \ul{r}equired indicated for <mark>X, <mark>Y respectively):}\\
+\addtolength{\tabcolsep}{-3pt}    
+{\footnotesize
+\rowcolors{0}{gray!20}{white}
+\begin{tabular}{@{} rp{3mm}p{3mm}p{3mm}p{3mm}p{3mm}p{3mm}p{3mm}p{3mm}p{3mm}p{3mm}p{3mm} @{}}
+                & \rot{x}       & \rot{x1}      & \rot{x2}      & \rot{y}       & \rot{y1}      & \rot{y2}      & \rot{z}       & \rot{r}       & \rot{text}    & \rot{fontSize}    & \rot{rotate}  \\
+    area        &               & rr            & oo            &               & rr            & oo            & oo            &               &               &                   &               \\
+    bar         & -o            & r-            & r-            & o-            & -r            & -r            &               &               &               &                   &               \\
+    cell        & oo            &               &               & oo            &               &               &               &               &               &                   &               \\
+    dot         & oo            &               &               & oo            &               &               &               & oo            &               &                   &               \\
+    line        & rr            &               &               & rr            &               &               &               & oo            &               &                   &               \\
+    link        &               & r             & r             & r             & r             &               &               &               &               &                   &               \\
+    rect        &               & rr            & rr            & rr            & rr            &               &               &               &               &                   &               \\
+    rule        & o-            & -o            & -o            & -o            & o-            & o-            &               &               &               &                   &               \\
+    text        & oo            &               &               & oo            &               &               &               &               & r             & oo                & oo            \\
+    tick        & ro            &               &               & or            &               &               &               &               &               &                   &               \\
+\end{tabular}}
+\addtolength{\tabcolsep}{3pt}
+\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsec{Scales}{<scale>}
+\textit{A means of encoding data into graphical content (screen position, color, etc). Scales map from an input domain to an output range. Options below are uniformly accessible or specific to scale type, as indicated in superscript: \ul{q}uantitative, \ul{p}ositional, \ul{o}rdinal, \ul{b}and, \ul{a}xis, \ul{c}olor.}
+%\textit{Options indicated under top-level scale.}
+\\
+\api
+{\widththree}{type \\ reverse \\ nice\textsuperscript{q} \\ inset\textsuperscript{p} \\ paddingInner\textsuperscript{b} \\ ticks\textsuperscript{a} \\ tickRotate\textsuperscript{a} \\ labelAnchor\textsuperscript{a} \\ interpolate\textsuperscript{c}}
+{\widththree}{domain \\ transform \\ zero\textsuperscript{q} \\ round\textsuperscript{p} \\ paddingOuter\textsuperscript{b} \\ tickSize\textsuperscript{a} \\ grid\textsuperscript{a} \\ labelOffset\textsuperscript{a}}
+{\widththree}{range \\ clamp\textsuperscript{q} \\ percent\textsuperscript{q} \\ padding\textsuperscript{o} \\ axis\textsuperscript{a} \\ tickFormat\textsuperscript{a} \\ label\textsuperscript{a} \\ scheme\textsuperscript{c} }
+\stopapi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Facets}
+\textit{Small multiples, laid out in grid fashion. Choose 2 of 3 channels from }\cde{data}, \cde{x}, \cde{y}\textit{, and any of the following optional styles:}\\
+\api
+{\widththree}{marginTop \\ marginLeft}
+{\widththree}{marginRight \\ grid}
+{\widththree}{marginBottom}
+\stopapi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Transforms}
+\textit{Take stipulated ``outputs'' and ``options'' as inputs and produce new, transformed options that can be used as arguments to }\cde{.plot()}\textit{ or }\cde{<mark>()}
+\begin{lstlisting}
+Plot.<trnsfrm>(<outputs>, <options>)
+\end{lstlisting}
+
+\api
+{\widththree}{bin[X|Y] \\ normalize(X|Y) \\ map[X|Y] }
+{\widththree}{group[X|Y] \\ window(X|Y)}
+{\widththree}{select(First|Last) \\ select(Min|Max)(X|Y) \\ stack(X|Y)[1|2]}
+\stopapi
+
+\vspace{1mm}
+\textit{Transform-specific options:}\\
+\begin{tabular}{l l l}
+    \ul{bin}   & \ul{map, et al} & \ul{stack}   \\
+    thresholds & k               & offset       \\
+    domain     & shift           & order        \\
+    cumulative & reduce          & reduce       \\
+\end{tabular}
+

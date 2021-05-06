@@ -1,8 +1,9 @@
 \documentclass[10pt,landscape]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
-\usepackage{tikz}
-\usetikzlibrary{shapes,positioning,arrows,fit,calc,graphs,graphs.standard}
+\usepackage[table]{xcolor}
+%\usepackage{tikz}
+%\usetikzlibrary{shapes,positioning,arrows,fit,calc,graphs,graphs.standard}
 \usepackage[nosf]{kpfonts}
 \usepackage[t1]{sourcesanspro}
 %\usepackage[lf]{MyriadPro}
@@ -22,6 +23,8 @@
 \usepackage{soul}
 \usepackage{graphbox}
 \usepackage{comment}
+\usepackage{adjustbox}
+\usepackage{amsfonts}
 
 \usepackage{graphicx}
 
@@ -48,7 +51,8 @@
 \definecolor{pastelgrey}{HTML}{f2f2f2}
 \definecolor{forestgreen}{HTML}{228B22}
 
-
+\def\widthfour{1.5cm}
+\def\widththree{2.0cm}
 
 \tikzset{filled/.style={fill=circle area, draw=circle edge, thick},
     outline/.style={draw=circle edge, thick}}
@@ -58,6 +62,14 @@
 
 \everymath\expandafter{\the\everymath \color{myblue}}
 \everydisplay\expandafter{\the\everydisplay \color{myblue}}
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{90}{0mm}}}% no optional argument here, please!
+
 
 \renewcommand{\baselinestretch}{.8}
 \pagestyle{empty}
@@ -71,7 +83,7 @@ linecolor=gray,linewidth=1pt,%
 \begin{mdframed}[]
 \footnotesize
 \sffamily
-\LARGE{\textbf{Plotting Cheatsheet}} \\ \small{GNUPlot, Desmos, \& VegaLite}
+\LARGE{\textbf{Plotting Tools}} \\ \small{GNUPlot, Desmos, \& VegaLite}
 % by~Blair~Labatt~III,~page~\thepage~of~2
 \end{mdframed}
 }
@@ -83,12 +95,21 @@ linecolor=gray,linewidth=1pt,%
     {
     }
     
+\newenvironment{cde}
+    {
+    \fboxsep1pt
+    \colorbox{gray!30}}
+    {
+    }
  
 \lstset{%
-  basicstyle=\small\ttfamily,
+  basicstyle=\footnotesize\ttfamily,
   breaklines=false,
-  backgroundcolor = \color{pastelgrey},
-  language=[LaTeX]{TeX}
+  aboveskip=0pt,
+  belowskip=2pt,
+  backgroundcolor = \color{pastelgreen},
+  language=[LaTeX]{TeX},
+  escapeinside={(*@}{@*)},
 }
 
 \newcommand{\entry}[3]{%%%
@@ -97,6 +118,44 @@ linecolor=gray,linewidth=1pt,%
     \end{minipage}%%%
     \# #3
 }%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% API command for columns of modules       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter 
+\newcommand{\api}{%
+  \begin{footnotesize}
+  \@apii
+}
+\newcommand\@apii{\@ifnextchar\stopapi{\@apiend}{\@apiii}}
+
+\newcommand\@apiii[2]{%
+  \@apiiii{#1}{#2}\hfill
+  \@apii % restart the recursion
+}
+\newcommand\@apiiii[2]{%
+  \begin{minipage}[t]{{#1}}
+  {#2}
+  \end{minipage}}
+\newcommand\@apiend[1]{% The argument is \stopapi
+  \end{footnotesize}
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\newcommand{\subsec}[2]{
+\subsection*{
+\begin{minipage}{32mm}
+{#1}
+\end{minipage}
+[\texttt{#2}]}
+}
+
 
 \makeatletter
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
@@ -233,7 +292,10 @@ linecolor=gray,linewidth=1pt,%
 \input{GNUPlot.tex}
 \input{desmos.tex}
 \input{plots-jl.tex}
-\input{VegaLite.tex}
+\input{observable.tex}
+
+\vfill\,
+
 
 \end{multicols*}
 \end{document}

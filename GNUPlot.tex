@@ -4,7 +4,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Invocation}
-\code{gnuplot [options]* [-c script-file]?}\\[2mm]
+\begin{lstlisting}
+gnuplot [options]* [-c script-file]?
+\end{lstlisting}
+
 \textit{GNUPlot is invoked in either batch mode (script given to STDIN); or in interactive mode, which exposes a prompt. Default settings can be overridden at startup by initialization files in either <install>/.gnuplotrc or \textasciitilde /.gnuplot. These files can invoke normal }\textbf{set}\textit{ commands as well as setting environment variables such as: } \texttt{GNUTERM}, \texttt{GDFONTPATH}, \texttt{GNUPLOT\_DEFAULT\_GDFONT}. \\[2mm]
 \textit{Interactive (command-line) commands include:} 
 {\footnotesize 
@@ -40,7 +43,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Plotting} 
-\code{[s]plot [<\ul{p}lot\ul{e}lement>]+}\\[2mm]
+
+\begin{lstlisting}
+[s]plot [<\ul{p}lot\ul{e}lement>]+
+\end{lstlisting}
 %\code{[<data> using <map> with <style>]*}
 \textbf{replot} \textit{ and }\textbf{refresh}\textit{ repeat the last }\textbf{plot}\textit{ command. PE has the following elaborate structure:}
 
@@ -63,7 +69,7 @@
 	    \end{itemize}
     \end{itemize}
 \item \textbf{title} \dots [\textbf{columnheader}[(N)]] <title> [\textbf{at} \dots]
-\item \textbf{with} \dots see Plot Types section
+\item \textbf{with} \dots (see \say{Plot Types} section)
 \end{itemize}}
 \vspace{2mm}
 
@@ -81,14 +87,49 @@
  
 \textbf{using}\textit{ phrase maps }<data>\textit{ to the abscissa \& ordinate (or angle and radius). For example:}\\
 \entry{40mm}{\dots using 1:(\$2+\$3)}{derived fields}\\
-\entry{40mm}{\dots using 1:5:6 \textquotesingle \%lf,\%lf,\%lf\textquotesingle}{comma sep}\\
 \entry{40mm}{\dots using 1:(\$3>7 ? \$2 : 1/7)}{ternary filtered}\\
+\entry{40mm}{\dots using 1:5:6 \textquotesingle \%lf,\%lf,\%lf\textquotesingle}{comma sep}\\
 \entry{40mm}{\dots using 2:4:xtic(1):ytic(3)}{labels}\\
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Set Command}
+\textit{Use }\textbf{help}\textit{ to learn about specific set subcommand parameters. Some, like datafile, palette, pm3d, and style, have a number of subsub-commands. Use }\textbf{show <cmd>|all}\textit{ to see current settings, eg:}\\
+\entry{35mm}{set angle radians}{a typical imperative}\\
+\entry{35mm}{show angles}{now in radians}\\
+{\footnotesize 
+\begin{tabular}{@{}l l l l}
+    angles      & arrow     & autoscale &   bind        \\
+    bmargin     & border    & boxwidth  & boxdepth      \\
+    color       & colorseq. & clabel    & clip          \\
+    cntrlbl     & cntrparam & colorbox  & col.names    \\
+    contour     & dashtype  & datafile  & decimalsgn    \\
+    dgrid3d     & dummy     & encoding  & errorbars     \\
+    fit         & fontpath  & format    & functions     \\
+    grid        & hidden3d  & hist.size & history       \\
+    isosamp.    & isosurf.  & jitter    & key           \\
+    label       & linetype  & link      & lmargin       \\
+    loadpath    & locale    & logscale  & macros        \\
+    mapping     & margin    & micro     & minussign     \\
+    monoch.m    & mouse     & mttics    & multiplot     \\
+    mx2tics     & mxtics    & my2tics   & mztics        \\
+    nonlinear   & object    & offsets   & origin        \\
+    output      & overflow  & palette   & parametric    \\
+    paxis       & pixmap    & plot      & pm3d          \\
+    p.ntint.    & pointsize & polar     & print         \\
+    psdir       & raxis     & rgbmax    & rlabel        \\
+    rmargin     & rrange    & rtics     & samples       \\
+    size        & spiderp.t & style     & surface       \\
+    table       & terminal  & termopt.  & theta         \\
+    tics        & ticslevel & ticscale  & timestamp      \\
+    timefmt     & title     & tmargin   & trange        \\
+    ttics       & urange    & variables & version       \\
+    vgrid       & view      & v?range   & walls         \\
+    ?data       & ?dtics    & ?label    & ?mtics        \\
+    ?range      & ?tics     & ?plane    & ?zeroax.      \\
+\end{tabular}}
+\textit{(}\textbf{?}\textit{ denotes an axis name, eg xtics.})\\ 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -173,7 +214,7 @@
 \entry{35mm}{plot sin(x) \dots ls 5}{use the above}\\
 
 \textit{Color specification (for lines, text):}\\
-\entry{40mm}{plot \dots [lc|lt|fc] <\ul{c}olor\_\ul{s}pec>}{coloring syntax}\\
+\entry{40mm}{plot \dots [lc|lt|fc] <\ul{c}ol\_\ul{s}pec>}{coloring syntax}\\
 \entry{40mm}{plot \dots lc 0xFF00FF}{RGB-based CS}\\
 \entry{40mm}{plot \dots lc \textquotedbl \#FF00FF\textquotedbl}{\textquotesingle x11\textquotesingle -based CS}\\
 \entry{40mm}{plot \dots lc palette frac .2}{fraction $\in$ [0,1]}\\
@@ -182,9 +223,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Plot Types (\say{styles})}
-\code{plot <data> using \dots with <style>}\\
-\textit{Each PE in a }\textbf{plot}\textit{ command admits an optional override to the default }<style>\textit{, which then renders an eponymous plot type. The PE\textquotesingle s associated }\textbf{using}\textit{ must yield an acceptable number of data fields, as indicated next each }<style>\textit{ below.}
+\begin{lstlisting}
+plot <data> using \dots with <style>
+\end{lstlisting}
 
+\textit{Each PE in a }\textbf{plot}\textit{ command admits an optional override to the default }<style>\textit{, which then renders an eponymous plot type. The PE\textquotesingle s associated }\textbf{using}\textit{ must yield an acceptable number of data fields, as indicated next each }<style>\textit{ below.}
 {\footnotesize
 \begin{itemize}
     \item \textbf{arrows} \dots x, y, length, angle
@@ -226,8 +269,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Terminals (Output)}
-
-\code{set term [terminal-name] [term-option]*}\\
+\begin{lstlisting}
+set term [terminal-name] [term-option]*
+\end{lstlisting}
 
 \textit{Output can be rendered as code for external compilation (eg, tikz, svg, HTML canvas, etc); as image binaries (jpeg, gif, pdf, etc); within a specified terminal (qt, x11, etc); or directly to a supported printer (eg, epson, hp, etc). My preferred terminals are: cairolatex, canvas, \href{http://gnuplot.sourceforge.net/docs/tutorial.pdf}{epslatex}, gif, pdfcairo, pngcairo, pstricks, svg, tikz, wxt, x11. For example:}
 
